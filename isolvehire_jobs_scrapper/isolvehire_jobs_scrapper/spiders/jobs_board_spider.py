@@ -20,7 +20,8 @@ class JobsDataSpider(scrapy.Spider):
         yield from response.follow_all(job_urls, self.parse_job_data)
 
     def parse_job_data(self, response):
-        yield {"Title": response.xpath(f'//a[@href="{"/" + ("/".join(response.url.split("/")[-2:]))}"]/text()').get(),
+        yield {"URL" : response.url ,
+               "Title": response.xpath(f'//a[@href="{"/" + ("/".join(response.url.split("/")[-2:]))}"]/text()').get(),
                "Location": response.xpath('//ul[@class="job-items"]//li//span/b[@title="Location"]/../../span[2]/text()').get(),
                "Pay": response.xpath('//ul[@class="job-items"]//li//span/b[@title="Pay"]/../../span[2]/text()').get(),
                "Pay Type": response.xpath('//ul[@class="job-items"]//li//span/b[@title="Pay Type"]/../../span[2]/text()').get(),
