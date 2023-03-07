@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class JobsBoardScrapperConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'jobs_board_scrapper'
+    name = 'jobs_board_scrapper_app'
