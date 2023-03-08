@@ -1,13 +1,16 @@
 # isolvedhire-jobs-scrapper
 
 
-## celery beat
+## Celery & Django Celery Beat
 
-in this directory: 
-    $ isolvedhire-jobs-scrapper\isolvehire_jobs_scrapper_django
+in this directory:
+    
+    isolvedhire-jobs-scrapper\isolvehire_jobs_scrapper_django
 
 run celery:
-    $ celery -A config worker -l INFO
+
+    celery -A config worker -l INFO
 
 run celery beat:
-    $ celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+    celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler
