@@ -17,5 +17,7 @@ class Job(SoftDeletableModel, TimeStampedModel):
         verbose_name=_("Job Benefits"), max_length=255, blank=True, null=True)
     job_description = models.TextField(verbose_name=_("Job Description"), blank=True, null=True)
 
+    class Meta:
+        ordering = ('-modified', '-pay')
     def __str__(self) -> str:
         return f"{self.title} #{(self.url.split('/')[-1]).split('.html')[0]}"
