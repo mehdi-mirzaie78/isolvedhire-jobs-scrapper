@@ -23,8 +23,7 @@ class JobsView(View):
         form = self.form_class(request.GET)
         if form.is_valid() and any(form.cleaned_data.values()):
             cd = form.cleaned_data
-            my_dict = {k: v.isoformat() for k, v in cd.items() if k in [
-                'start_date', 'end_date']}
+            my_dict = {k: v.isoformat() for k, v in cd.items() if k in ['start_date', 'end_date'] and v}
             cd.update(my_dict)
             request.session['filter_jobs'] = cd
         elif not request.GET.get('page', None):
