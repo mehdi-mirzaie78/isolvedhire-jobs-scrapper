@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator
 from .models import Job
 from .forms import JobForm
-from jobs_board_scrapper_app.utils import sync_db
 from datetime import datetime
+from .tasks import sync_db
 
 
 def sync_db_view(request):
-    print("Hey")
-    sync_db()
+    sync_db.delay()
     return redirect('home')
 
 
@@ -19,11 +18,12 @@ class JobsView(View):
 
     def get(self, request):
         # sync_db()     # we can sync each time we want to get all jobs
-        jobs = Job.objects.filter(is_removed=False)
+        jobs = Job.objects.all()
         form = self.form_class(request.GET)
         if form.is_valid() and any(form.cleaned_data.values()):
             cd = form.cleaned_data
-            my_dict = {k: v.isoformat() for k, v in cd.items() if k in ['start_date', 'end_date'] and v}
+            my_dict = {k: v.isoformat() for k, v in cd.items() if k in [
+                'start_date', 'end_date'] and v}
             cd.update(my_dict)
             request.session['filter_jobs'] = cd
         elif not request.GET.get('page', None):
