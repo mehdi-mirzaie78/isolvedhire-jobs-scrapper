@@ -52,48 +52,64 @@
                 <!-- <div class="card p-3 mb-2">
                     <a href="{% url 'home' %}">Sort</a>
                 </div> -->
+                {% if page_jobs %}
+                    {% for job in page_jobs %}
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-10 col-lg-11">
+                                    <p class="mt-2 mb-0 fw-bold">{{ job.title }}</p>
+                                </div>
 
-                {% for job in page_jobs %}
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-10 col-lg-11">
-                                <p class="mt-2 mb-0 fw-bold">{{ job.title }}</p>
+                                <div class="col-2 col-lg-1 justify-content-end">
+                                    <a href="{{ job.url }}" class="btn btn-outline-primary w-100">Info</a>
+                                </div>
                             </div>
 
-                            <div class="col-2 col-lg-1 justify-content-end">
-                                <a href="{{ job.url }}" class="btn btn-outline-primary w-100">Info</a>
-                            </div>
                         </div>
+                        <div class="card-body px-4">
 
+                            <div style="padding: 0;" class="col-md-12">
+                                <ul class="row">
+                                    <li class="col-md-3">Location: <span class="fw-bold">{{ job.location }}</span></li>
+                                    <li class="col-md-3">Payment: <span class="fw-bold">${{ job.pay }}</span></li>
+                                    <li class="col-md-3">Payment Type: <span class="fw-bold">{{ job.pay_type }}</span></li>
+                                    <li class="col-md-3">Employment Type: <span class="fw-bold">
+                                            {{ job.employment_type }}</span></li>
+                                </ul>
+                                <hr>
+
+                                <div class="clearfix">Benefits:</div>
+                                <p style="margin: 5px 18px;"><i>{{ job.job_benefits }}</i></p>
+                                <hr>
+                            </div>
+
+                            <p class="m-0 mb-1">Description:</p>
+                            <small>{{ job.job_description }}</small>
+                            <hr>
+                            <small>Date - Time: {{ job.modified }}</small>
+                        </div>
                     </div>
-                    <div class="card-body px-4">
-
-                        <div style="padding: 0;" class="col-md-12">
-                            <ul class="row">
-                                <li class="col-md-3">Location: <span class="fw-bold">{{ job.location }}</span></li>
-                                <li class="col-md-3">Payment: <span class="fw-bold">${{ job.pay }}</span></li>
-                                <li class="col-md-3">Payment Type: <span class="fw-bold">{{ job.pay_type }}</span></li>
-                                <li class="col-md-3">Employment Type: <span class="fw-bold">
-                                        {{ job.employment_type }}</span></li>
-                            </ul>
-                            <hr>
-
-                            <div class="clearfix">Benefits:</div>
-                            <p style="margin: 5px 18px;"><i>{{ job.job_benefits }}</i></p>
-                            <hr>
-                        </div>
-
-                        <p class="m-0 mb-1">Description:</p>
-                        <small>{{ job.job_description }}</small>
-                        <hr>
-                        <small>Date - Time: {{ job.modified }}</small>
+                    {% endfor %}
+                {% else %}
+                    <br><br><br><br><br><br><br><br><br>
+                <div class="d-flex align-items-center justify-content-center mt-5">
+                    <div class="text-center">
+                        <h1 class="display-1 fw-bold"><i>Not Found</i></h1>
+                        <br>
+                        <p class="fs-3"><span class="text-danger">Opps! </span>There is no job with that specific information.</p>
+                        <br>
+                        <a href="{% url 'home' %}" class="btn btn-outline-primary w-25">Show All Jobs</a>
                     </div>
                 </div>
-                {% endfor %}
 
 
-                <br><br><br><br><br>
+
+                
+
+                {% endif %}
+
+                
                 <!-- Pagination Buttons -->
                 <div class="footer">
                 <nav aria-label="Page navigation">
