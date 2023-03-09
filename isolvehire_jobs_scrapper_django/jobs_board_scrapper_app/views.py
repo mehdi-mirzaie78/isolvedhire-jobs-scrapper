@@ -23,6 +23,9 @@ class JobsView(View):
         if form.is_valid() and any(form.cleaned_data.values()):
             cd = form.cleaned_data
             request.session['filter_jobs'] = cd
+        elif not request.GET.get('page', None):
+            request.session['filter_jobs'] = {}
+
 
         for key, value in request.session.get('filter_jobs').items():
             if value:
