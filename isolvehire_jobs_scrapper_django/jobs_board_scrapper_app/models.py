@@ -9,7 +9,7 @@ class Job(SoftDeletableModel, TimeStampedModel):
     url = models.URLField(verbose_name=_("URL"), unique=True)
     title = models.CharField(verbose_name=_("Title"), max_length=255)
     location = models.CharField(verbose_name=_("Location"), max_length=255, blank=True, null=True)
-    pay = models.FloatField(verbose_name=_("Pay"), max_length=255, blank=True, null=True)
+    pay = models.CharField(verbose_name=_("Pay"), max_length=255, blank=True, null=True)
     pay_type = models.CharField(verbose_name=_("Pay Type"), max_length=255, blank=True, null=True)
     employment_type = models.CharField(
         verbose_name=_("Employment Type"), max_length=255, blank=True, null=True)
