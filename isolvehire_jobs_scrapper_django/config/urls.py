@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from jobs_board_scrapper_app.views import sync_db_view
+from jobs_board_scrapper_app.views import sync_db_view, JobsView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("sync-db/", sync_db_view)
+    path("sync-db/", sync_db_view, name='sync_db'),
+    path("", JobsView.as_view(), name='home'),
 ]
