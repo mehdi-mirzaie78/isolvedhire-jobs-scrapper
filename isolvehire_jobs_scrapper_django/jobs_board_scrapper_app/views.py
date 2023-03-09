@@ -20,28 +20,27 @@ class JobsView(View):
         # sync_db()     # we can sync each time we want to get all jobs
         jobs = Job.objects.filter(is_removed=False)
         form = self.form_class(request.GET)
-        if form.is_valid():
+        if form.is_valid() and any(form.cleaned_data.values()):
             cd = form.cleaned_data
-            for key, value in cd.items():
-                if value:
-                    if key == 'title':
-                        jobs = jobs.filter(title__contains=value)
-                    elif key == 'location':
-                        jobs = jobs.filter(location__contains=value)
-                    elif key == 'payment_start':
-                        jobs = jobs.filter(pay__gte=value)
-                        print(value, type(value))
-                    elif key == 'payment_end':
-                        jobs = jobs.filter(pay__lt=value)
-                    elif key == 'payment_type':
-                        jobs = jobs.filter(pay_type__contains=value)
-                    elif key == 'employment_type':
-                        jobs = jobs.filter(employment_type__contains=value)
-                    elif key == 'start_date':
-                        jobs = jobs.filter(modified__gte=value)
-                    elif key == 'end_date':
-                        jobs = jobs.filter(modified__lte=value)
-        
+            request.session['filter_jobs'] = cd
+
+        for key, value in request.session.get('filter_jobs').items():
+            if value:
+                if key == 'title':
+                    jobs = jobs.filter(title__contains=value)
+                elif key == 'location':
+                    jobs = jobs.filter(location__contains=value)
+                elif key == 'payment':
+                    jobs = jobs.filter(pay__contains=value)
+                elif key == 'payment_type':
+                    jobs = jobs.filter(pay_type__contains=value)
+                elif key == 'employment_type':
+                    jobs = jobs.filter(employment_type__contains=value)
+                elif key == 'start_date':
+                    jobs = jobs.filter(modified__gte=value)
+                elif key == 'end_date':
+                    jobs = jobs.filter(modified__lte=value)
+    
         p = Paginator(jobs, 2)
         page = request.GET.get('page')
         page_jobs = p.get_page(page)
