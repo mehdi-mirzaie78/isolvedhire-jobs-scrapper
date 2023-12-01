@@ -1,16 +1,31 @@
 # isolvedhire-jobs-scrapper
 
+## Follow these steps to run:
+1. Get docker desktop from [docs.docker.com](https://docs.docker.com/get-docker/)
+Note: If your OS is Windows download and Install "Docker Desktop" with "Docker Desktop Installer.exe"
+2. After installation Go to [Dockerhub](https://hub.docker.com/) and sign up. 
+3. Open a Terminal with cmd or powershell and run:
 
-## Celery & Django Celery Beat
+```shell
+docker login
+```
+It will prompt for your username and password which is `username` and `password` that you used in dockerhub registration.
 
-in this directory:
-    
-    isolvedhire-jobs-scrapper\isolvehire_jobs_scrapper_django
+4. The video tells you how to continue to run the application For the first time it may take a while to run the project but each time after that, it will start immediately.
 
-run celery:
 
-    celery -A config worker -l INFO
+### Linux Guide:
 
-run celery beat:
 
-    celery -A config beat --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+### First time:
+```shell
+docker compose up --build
+```
+### Stop: 
+Press `ctrl`+`c`
+
+### Rerun: 
+```shell
+docker compose up
+```
