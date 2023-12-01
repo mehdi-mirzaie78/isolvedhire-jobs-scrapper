@@ -15,6 +15,8 @@ It will prompt for your username and password which is `username` and `password`
 
 
 ### Linux Guide:
+https://github.com/mehdi-mirzaie78/isolvedhire-jobs-scrapper/assets/107181484/2508c560-fdd5-4ce6-9589-431cbc9c8b38
+
 
 
 
